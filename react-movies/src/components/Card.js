@@ -22,6 +22,9 @@ export default function Card({ movie }) {
       ) : (
         ""
       )}
+      <h4>
+        {movie.vote_average}/10 <span>⭐</span>
+      </h4>
     </div>
   );
 }
