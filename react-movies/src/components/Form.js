@@ -8,7 +8,7 @@ export default function Form() {
   useEffect(() => {
     axios
       .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=583a93ce4dd56c8af08dcfe52409369f&query=star&language=fr-FR`
+        `https://api.themoviedb.org/3/search/movie?api_key=583a93ce4dd56c8af08dcfe52409369f&query=harry&language=fr-FR`
       )
       .then((resp) => setMoviesData(resp.data.results));
   }, []);
