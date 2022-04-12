@@ -7,7 +7,7 @@ export default function Form() {
   //valeur de l'input qu'on récupère
   const [search, setSearch] = useState("");
   //top et flop
-  const [sortGoodBad, setSortGoodBad] = useState("goodToBad");
+  const [sortGoodBad, setSortGoodBad] = useState(null);
 
   useEffect(() => {
     axios
@@ -31,10 +31,18 @@ export default function Form() {
         </form>
 
         <div className="btn-sort-container">
-          <div className="btn-sort" id="goodToBad">
+          <div
+            className="btn-sort"
+            id="goodToBad"
+            onClick={() => setSortGoodBad("goodToBad")}
+          >
             Top<span>⇾</span>
           </div>
-          <div className="btn-sort" id="badToGood">
+          <div
+            className="btn-sort"
+            id="badToGood"
+            onClick={() => setSortGoodBad("badToGood")}
+          >
             Flop<span>⇾</span>
           </div>
         </div>
@@ -43,7 +51,11 @@ export default function Form() {
         {moviesData
           .slice(0, 12)
           .sort((a, b) => {
-            return b.vote_average - a.vote_average; // top/flop
+            if (sortGoodBad === "goodToBad") {
+              return b.vote_average - a.vote_average; //top rating
+            } else if (sortGoodBad === "badToGood") {
+              return a.vote_average - b.vote_average; //low rating
+            }
           })
           .map((movie) => (
             <Card key={movie.id} movie={movie} />
