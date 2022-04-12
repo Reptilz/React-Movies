@@ -6,12 +6,12 @@ export default function Form() {
   const [moviesData, setMoviesData] = useState([]);
 
   //valeur de l'input qu'on récupère
-  const [search, setSearch] = useState("harry ");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     axios
       .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=583a93ce4dd56c8af08dcfe52409369f&query=${search}l&language=fr-FR`
+        `https://api.themoviedb.org/3/search/movie?api_key=583a93ce4dd56c8af08dcfe52409369f&query=${search} l&language=fr-FR`
       )
       .then((resp) => setMoviesData(resp.data.results));
   }, [search]);
