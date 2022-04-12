@@ -4,9 +4,10 @@ import Card from "./Card";
 
 export default function Form() {
   const [moviesData, setMoviesData] = useState([]);
-
   //valeur de l'input qu'on récupère
   const [search, setSearch] = useState("");
+  //top et flop
+  const [sortGoodBad, setSortGoodBad] = useState("goodToBad");
 
   useEffect(() => {
     axios
@@ -39,9 +40,14 @@ export default function Form() {
         </div>
       </div>
       <div className="result">
-        {moviesData.slice(0, 12).map((movie) => (
-          <Card key={movie.id} movie={movie} />
-        ))}
+        {moviesData
+          .slice(0, 12)
+          .sort((a, b) => {
+            return b.vote_average - a.vote_average; // top/flop
+          })
+          .map((movie) => (
+            <Card key={movie.id} movie={movie} />
+          ))}
       </div>
     </div>
   );
