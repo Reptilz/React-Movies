@@ -75,7 +75,9 @@ export default function Card({ movie }) {
   };
 
   return (
+    //Cards
     <div className="card">
+      {/*Image*/}
       <img
         src={
           movie.poster_path
@@ -84,17 +86,26 @@ export default function Card({ movie }) {
         }
         alt={movie.original_title}
       />
+      {/*Titre*/}
       <h2>{movie.title}</h2>
+      {/*Date formatée*/}
       {movie.release_date ? (
         <h5>Sorti le : {dateFormater(movie.release_date)}</h5>
       ) : (
         ""
       )}
+      {/*Note sur 10*/}
       <h4>
         {movie.vote_average}/10 <span>⭐</span>
       </h4>
-
+      {/*Les genres*/}
       <ul>{genreFinder()}</ul>
+      {/*Synopsis*/}
+      {movie.overview ? <h3>Synopsis :</h3> : ""}
+      <p>{movie.overview}</p>
+
+      {/*Btn ajouter coup de coeur*/}
+      <div className="btn">Ajouter coup de coeur</div>
     </div>
   );
 }
