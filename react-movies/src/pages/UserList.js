@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 export default function UserList() {
@@ -24,25 +25,28 @@ export default function UserList() {
   }, []);
 
   return (
-    <div className="user-list-page">
-      <Header />
-      <h2>
-        Coup de coeur <span>💖</span>
-      </h2>
+    <>
+      <div className="user-list-page">
+        <Header />
+        <h2>
+          Coup de coeur <span>💖</span>
+        </h2>
 
-      {/**
-       * Affiche le composant Card
-       * On récupère le props movie de card
-       * On lui indique une key (id)
-       * On regarde si une liste existe(length > 0) sinon on indique un message dans un <h2>
-       */}
-      <div className="result">
-        {listData.length > 0 ? (
-          listData.map((movie) => <Card movie={movie} key={movie.id} />)
-        ) : (
-          <h2>Aucun coup de coeur pour le moment...</h2>
-        )}
+        {/**
+         * Affiche le composant Card
+         * On récupère le props movie de card
+         * On lui indique une key (id)
+         * On regarde si une liste existe(length > 0) sinon on indique un message dans un <h2>
+         */}
+        <div className="result">
+          {listData.length > 0 ? (
+            listData.map((movie) => <Card movie={movie} key={movie.id} />)
+          ) : (
+            <h2>Aucun coup de coeur pour le moment...</h2>
+          )}
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }
