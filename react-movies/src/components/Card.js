@@ -88,6 +88,14 @@ export default function Card({ movie }) {
     }
   };
 
+  //Supprime un film de la liste des coups de coeurs
+  const deleteStorage = () => {
+    let storedData = window.localStorage.movies.split(",");
+    let newData = storedData.filter((id) => id != movie.id);
+
+    window.localStorage.movies = newData;
+  };
+
   return (
     //Cards
     <div className="card">
@@ -112,22 +120,43 @@ export default function Card({ movie }) {
       <h4>
         {movie.vote_average}/10 <span>⭐</span>
       </h4>
-      {/*Les genres*/}
+
+      {/**
+       * Affiche les genres selon la page où on se situe
+       * si genre_ids(Home page) existe alors affiche les genres (ceux dans le switch au-dessus)
+       * sinon, affiche les genres dans un <li> pour la page UserList(coup de coeur)
+       */}
       <ul>
         {movie.genre_ids
           ? genreFinder()
-          : movie.genres.map((genre) => {
-              <li>{genre.name}</li>;
+          : movie.genres.map((genre, index) => {
+              <li key={index}>{genre.name}</li>;
             })}
       </ul>
       {/*Synopsis*/}
       {movie.overview ? <h3>Synopsis :</h3> : ""}
       <p>{movie.overview}</p>
 
-      {/*Btn ajouter coup de coeur*/}
-      <div className="btn" onClick={() => addStorage()}>
-        Ajouter coup de coeur
-      </div>
+      {/**
+       * Affiche le bouton ajouter coup de coeur uniquement sur la page HOME
+       * Si genre_ids === true (genre_ids uniquement disponible sur la page HOME) alors affiche le btn
+       * Sinon, ajoute btn supprimer de liste (sur la page UserList)
+       */}
+      {movie.genre_ids ? (
+        <div className="btn" onClick={() => addStorage()}>
+          Ajouter coup de coeur
+        </div>
+      ) : (
+        <div
+          className="btn"
+          onClick={() => {
+            deleteStorage();
+            window.location.reload(); //recharge la page pour rafraîchir la liste
+          }}
+        >
+          Supprimer de la liste
+        </div>
+      )}
     </div>
   );
 }
