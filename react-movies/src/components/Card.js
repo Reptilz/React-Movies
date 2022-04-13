@@ -113,7 +113,13 @@ export default function Card({ movie }) {
         {movie.vote_average}/10 <span>⭐</span>
       </h4>
       {/*Les genres*/}
-      <ul>{genreFinder()}</ul>
+      <ul>
+        {movie.genre_ids
+          ? genreFinder()
+          : movie.genres.map((genre) => {
+              <li>{genre.name}</li>;
+            })}
+      </ul>
       {/*Synopsis*/}
       {movie.overview ? <h3>Synopsis :</h3> : ""}
       <p>{movie.overview}</p>
