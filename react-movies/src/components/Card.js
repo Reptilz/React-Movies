@@ -74,6 +74,20 @@ export default function Card({ movie }) {
     return genreArray.map((genre) => <li key={genre}>{genre}</li>);
   };
 
+  //Store l'id d'un film pour le garder au refresh de la page
+  const addStorage = () => {
+    let storedData = window.localStorage.movies
+      ? window.localStorage.movies.split(",") // si le storage existe alors split du tableau à chaque ","
+      : []; //sinon, si le storage n'existe pas, crée un tableau vide
+
+    //si l'id existe déjà alors on ne l'ajoute pas dans le tableau
+    //si l'id n'existe pas alors on l'ajoute au tableau
+    if (!storedData.includes(movie.id.toString())) {
+      storedData.push(movie.id);
+      window.localStorage.movies = storedData;
+    }
+  };
+
   return (
     //Cards
     <div className="card">
@@ -105,7 +119,9 @@ export default function Card({ movie }) {
       <p>{movie.overview}</p>
 
       {/*Btn ajouter coup de coeur*/}
-      <div className="btn">Ajouter coup de coeur</div>
+      <div className="btn" onClick={() => addStorage()}>
+        Ajouter coup de coeur
+      </div>
     </div>
   );
 }
