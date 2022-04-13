@@ -8,6 +8,8 @@ export default function UserList() {
   const [listData, setListData] = useState([]);
 
   useEffect(() => {
+    const api_key = "583a93ce4dd56c8af08dcfe52409369f";
+
     let moviesId = window.localStorage.movies
       ? window.localStorage.movies.split(",")
       : [];
@@ -16,7 +18,7 @@ export default function UserList() {
     for (let i = 0; i < moviesId.length; i++) {
       axios
         .get(
-          `https://api.themoviedb.org/3/movie/${moviesId[i]}?api_key=583a93ce4dd56c8af08dcfe52409369f&language=fr-FR&external_source=imdb_id`
+          `https://api.themoviedb.org/3/movie/${moviesId[i]}?api_key=${api_key}&language=fr-FR&external_source=imdb_id`
         )
         .then((response) => {
           setListData((listData) => [...listData, response.data]); //casse la liste du tableau en y ajoutant des valeurs

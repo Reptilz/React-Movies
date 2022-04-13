@@ -10,9 +10,11 @@ export default function Form() {
   const [sortGoodBad, setSortGoodBad] = useState(null);
 
   useEffect(() => {
+    const api_key = "583a93ce4dd56c8af08dcfe52409369f";
+
     axios
       .get(
-        `https://api.themoviedb.org/3/search/movie?api_key=583a93ce4dd56c8af08dcfe52409369f&query=${search} l&language=fr-FR`
+        `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${search} l&language=fr-FR`
       )
       .then((resp) => setMoviesData(resp.data.results));
   }, [search]);
